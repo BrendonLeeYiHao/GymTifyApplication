@@ -1,0 +1,81 @@
+﻿@using GymFitApplication.Areas.Identity.Data;
+@model List<GymFitApplicationUser>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<GymFitApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "UserList";
+}
+
+
+@if(ViewBag.msg != null)
+{
+    <script>alert("@ViewBag.msg"");</script>
+}
+
+<style>
+    button{
+        background-color:rgb(245, 99, 75);
+        border:0;
+        color:white;
+    }
+</style>
+
+<h3>@ViewData["Title"]</h3>
+
+
+<center style="margin-top:80px; margin-bottom:50px">
+    <div class="row">
+        <div class="col-4">
+            <form method="post" asp-action="Search" asp-controller="User">
+                <label>Keyword</label> &nbsp;&nbsp;
+                <input type="text" name="SearchString" /> &nbsp;&nbsp;
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="col-4">
+            <h1>User List</h1>
+        </div>
+        <div class="col-4">
+                <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">
+                    <button class="btn-lg">New User</button>
+                </a>
+        </div>
+    </div>   
+    
+
+    <div style="padding:20px 50px">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Email Address</th>
+                    <th>Package Id</th>
+                    <th>Phone Number</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Rolename</td>
+                        <td>@user.Email</td>
+                        <td>@user.Packageid</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>@user.Dateofbirth.ToString("dd/MM/yyyy")</td>
+                        <td>@user.Gender</td>
+                            <td><a asp-action="editpage" asp-controller="User" asp-route-userid="@user.Id"><button>Edit</button></a></td>
+                            <td><a asp-action="deletepage" asp-controller="User" asp-route-userid="@user.Id"><button>Delete</button></a></td>
+                    </tr>                    
+                }
+            </tbody>        
+        </table>
+    </div>
+</center>
+

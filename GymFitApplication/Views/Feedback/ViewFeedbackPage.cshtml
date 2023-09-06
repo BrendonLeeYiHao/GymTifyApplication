@@ -1,0 +1,79 @@
+﻿@model List<Feedback>
+@{
+    ViewData["Title"] = "ViewFeedbackPage";
+}
+
+
+<style>
+    th{
+        padding:10px
+    }
+
+    td{
+        padding:10px
+    }
+
+    table tr:not(:first-child):not(:last-child) {
+        border-bottom: 1px solid black;
+    }
+
+    table th{
+        border-bottom: 2px solid black;
+    }
+</style>
+
+@if (@ViewBag.empty == "Empty")
+{
+    <div style="margin-top:120px; margin-bottom:50px">
+        <div style="margin:auto;max-width:1000px;">
+            <h2 style="text-align:left">Feedback</h2>
+            <div style="display:flex;justify-content:center;align-items:center;height:300px;background-color:#ecfaff;border-radius:10px">
+                No Data
+            </div>
+            
+        </div>
+    </div>
+}
+else
+{
+    <!-- add on the filtering feature above the list-->
+    <div style="margin-top:120px; margin-bottom:50px">
+        <form style="margin:auto;max-width:1000px">
+            <h2 style="text-align:left">Feedback</h2>
+            <label>Fiter Feedback: </label>&nbsp;&nbsp;
+            <input type="text" name="SearchString" placeholder="Enter Name/Email" style="border-radius:10px;width:300px;padding:0px 10px"/>&nbsp;&nbsp;&nbsp;
+            <button style="width:100px;border-radius:10px;background-color:orange;border:2px solid orange">Search</button>
+        </form>
+        <br />
+        <div style="margin:auto;max-width:1000px;border-radius:10px">
+            @if (!string.IsNullOrEmpty(@ViewBag.msg as string))
+            {
+                <div id="statusMessage" class="alert alert-success" role="alert">
+                    @ViewBag.msg
+                </div>
+            }
+            <table style="background-color:#ecfaff; padding:10px;border-radius:10px">
+                <!--static heading part use html-->
+                <tr>
+                    <th width="200">Feedback ID</th>
+                    <th width="200">Name</th>
+                    <th width="200">Email</th>
+                    <th width="400">Message</th>
+                </tr>
+                <!-- Dynamic Area - follow database data-->
+                @foreach (var feedback in Model)
+                {
+                    <tr>
+                        <td width="200">@feedback.FeedbackId</td>
+                        <td width="200">@feedback.Name</td>
+                        <td width="200">@feedback.Email</td>
+                        <td width="200">@feedback.Message</td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+}
+
+

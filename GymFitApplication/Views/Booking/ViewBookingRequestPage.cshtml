@@ -1,0 +1,88 @@
+﻿@model List<KeyValuePair<Booking, string>>
+
+@{
+    ViewData["Title"] = "viewmsg";
+}
+
+<style>
+    th{
+        padding:10px
+    }
+
+    td{
+        padding:10px
+    }
+
+    table tr:not(:first-child):not(:last-child) {
+        border-bottom: 1px solid black;
+    }
+
+    table th{
+        border-bottom: 2px solid black;
+    }
+</style>
+
+
+<h1>viewmsg</h1>
+
+<div style="margin:auto;max-width:900px;margin-top:60px;margin-bottom:50px">
+    <h1>Approve / Reject Booking</h1>
+    <hr />
+    @if (!string.IsNullOrEmpty(TempData["StatusMessage"] as string))
+    {
+        <div id="statusMessage" class="alert alert-success" role="alert">
+            @TempData["StatusMessage"]
+        </div>
+    }
+    @if (@ViewBag.checkData == "Not Empty")
+    {
+        <table style="background-color:#ecfaff; padding:10px;border-radius:10px">
+                <tr>
+                    <th width="300">Username</th>
+                    <th width="200">Booking Date</th>
+                    <th width="200">Start Time</th>
+                    <th width="200">Duration</th>
+                    <th width="300">Action</th>
+                </tr>
+                @foreach(var message in Model){
+                    <tr>
+                        <td width="300">@message.Key.UserName</td>
+                        <td width="200">@message.Key.BookingDate.ToString("MM/dd/yyyy")</td>
+                        <td width="200">@message.Key.StartTime</td>
+                        <td width="200">@message.Key.Duration</td>
+                        <td width="300">
+                            <form method="post">
+                                <input type="hidden" name="booking" value="@Json.Serialize(message.Key)" />
+                                <button type="submit" class="btn-info" asp-action="deleteMsgFromQ" asp-controller="Booking" asp-route-username="@message.Key.UserName" asp-route-bookingdate="@message.Key.BookingDate" asp-route-starttime="@message.Key.StartTime" asp-route-duration="@message.Key.Duration" asp-route-deleteid="@message.Value" asp-route-word="Approve" >Approve</button>&nbsp;&nbsp;&nbsp;
+                                <button type="submit" class="btn-info" asp-action="deleteMsgFromQ" asp-controller="Booking" asp-route-username="@message.Key.UserName" asp-route-bookingdate="@message.Key.BookingDate" asp-route-starttime="@message.Key.StartTime" asp-route-duration="@message.Key.Duration" asp-route-deleteid="@message.Value" asp-route-word="Reject" >Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+        
+        </table>
+
+    }
+    else
+    {
+        <div style="margin:auto;max-width:1000px;">
+            <div style="display:flex;justify-content:center;align-items:center;height:300px;background-color:#ecfaff;border-radius:10px">
+                No Booking Request available
+            </div>
+        </div>
+    }
+
+</div>
+
+<script>
+    // Check if the status message is present, then set a timer to hide it after 5 seconds
+    document.addEventListener("DOMContentLoaded", function() {
+        var statusMessageElement = document.getElementById("statusMessage");
+        if (statusMessageElement) {
+            setTimeout(function() {
+                statusMessageElement.style.display = "none";
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+    });
+</script>
+

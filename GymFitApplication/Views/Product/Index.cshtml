@@ -1,0 +1,66 @@
+﻿@model GymFitApplication.Models.Product
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<hr />
+<center style="text-align:left;margin-top:120px;margin-bottom:50px">
+    <div style="padding:0px 10px">
+        <form method="post" asp-action="Create" asp-controller="Product" style="max-width:600px;margin:auto" enctype="multipart/form-data">
+            <h2>Product</h2>
+            @{
+                var ImageUploadErrorMessage = TempData["ImageUploadErrorMessage"] as string;
+            }
+
+            @if (!string.IsNullOrEmpty(ImageUploadErrorMessage))
+            {
+                <div id="statusMessage" class="alert alert-danger">
+                    @ImageUploadErrorMessage
+                </div>
+            }
+           
+
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input type="file" name="imagefiles" accept="image/*" class="form-control pb-5 pt-3" multiple />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="w-100 btn btn-lg" style="background-color:rgb(245, 99, 75)" />
+            </div>
+            </form>
+        </div>
+</center>
+
+<script>
+    // Check if the status message is present, then set a timer to hide it after 5 seconds
+    document.addEventListener("DOMContentLoaded", function () {
+        var statusMessageElement = document.getElementById("statusMessage");
+        if (statusMessageElement) {
+            setTimeout(function () {
+                statusMessageElement.style.display = "none";
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+    });
+</script>
+
+
+
+

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<GymFitApplication.Models.Tutor>
+
+@{
+    ViewData["Title"] = "TutorList";
+}
+
+
+<style>
+    button {
+        background-color: rgb(245, 99, 75);
+        border: 0;
+        color: white;
+    }
+</style>
+
+<h3>@ViewData["Title"]</h3>
+
+<center style="margin-top:80px; margin-bottom:50px">
+    <div class="row">
+        <div class="col-4">
+            <form method="post" asp-action="Search" asp-controller="Tutor">
+                <label>Keyword</label> &nbsp;&nbsp;
+                <input type="text" name="SearchString" /> &nbsp;&nbsp;
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="col-4">
+            <h1>Tutor List</h1>
+        </div>
+        @*<div class="col-4">
+            <a class="nav-link" asp-action="Index" asp-controller="Product">
+                <button class="btn-lg">New Tutor</button>
+            </a>
+        </div>*@
+    </div>
+
+
+    <div style="padding:20px 50px">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tutor in Model)
+                {
+                    <tr>
+                        <td>@tutor.Name</td>
+                        <td>@tutor.Description</td>
+                        <td>@tutor.Title</td>
+                        @if(@tutor.Image != null){
+                            <td><img src="@tutor.Image" width="200" height="200" /></td>
+                        }
+                        else
+                        {
+                            <td>@tutor.Image</td>
+                        }
+                        <td><a asp-action="editpage" asp-controller="Tutor" asp-route-tutorid="@tutor.Id"><button>Edit</button></a></td>
+                        <td><a asp-action="deletepage" asp-controller="Tutor" asp-route-tutorid="@tutor.Id"><button>Delete</button></a></td>
+                    </tr>                                  
+                }
+            </tbody>
+        </table>
+    </div>
+</center>

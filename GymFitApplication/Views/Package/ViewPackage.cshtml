@@ -1,0 +1,99 @@
+﻿@model List<Package>
+
+@{
+    ViewData["Title"] = "ViewPackage";
+}
+
+<div class="main-wrapper">
+	<section class="page-title bg-2">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<ul class="list-inline mb-0">
+						<li class="list-inline-item"><a asp-controller="Home" asp-action="Index" class="text-sm letter-spacing text-white text-uppercase font-weight-bold">Home</a></li>
+						<li class="list-inline-item"><span class="text-white">|</span></li>
+						<li class="list-inline-item"><a href="#" class="text-color text-uppercase text-sm letter-spacing">Package</a></li>
+					</ul>
+					<h1 class="text-lg text-white mt-2">Package</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section pricing start -->
+	<section class="section pricing">
+		<div class="container">
+			@{
+				var subscriptionSuccessMessage = TempData["SubscriptionSuccessMessage"] as string;
+				var loginMessage = TempData["NotAuthenticatedMessage"] as string;
+			}
+
+			@if (!string.IsNullOrEmpty(subscriptionSuccessMessage))
+			{
+				<div class="alert alert-success">
+					@subscriptionSuccessMessage
+				</div>
+			}
+
+			@if (!string.IsNullOrEmpty(loginMessage))
+			{
+				<div class="alert alert-danger">
+					@loginMessage
+				</div>
+			}
+
+			<div class="row justify-content-center">
+				<div class="col-lg-8 text-center">
+					<div class="section-title">
+						<div class="divider mb-3"></div>
+						<h2>Package Pricing</h2>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row justify-content-center">
+				@foreach (var package in Model)
+				{
+					@if(package.Duration == 90)
+					{
+						<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+							<div class="card rounded-0 px-4 py-5">
+								<h4 class="card-title text-capitalize font-weight-normal font-secondary"><span class="text-sm bg-dark text-light py-1 px-2 mr-2">Popular</span>@package.Name</h4>
+								<h3 class="text-lg font-secondary position-relative mt-2"><sup class="text-sm position-absolute">RM</sup> &nbsp; @package.Price</h3>
+
+								<div class="card-body mt-2">
+									<ul class="list-unstyled lh-35 mb-4">
+										<li class="text-black font-weight-bold"><i class="ti-check mr-3 text-color "></i>@package.Duration days</li>
+										<li class="text-black font-weight-bold"><i class="ti-check mr-3 text-color "></i>@package.Description</li>
+									</ul>
+									<a asp-action="Subscribe" asp-controller="Package" asp-route-packageid="@package.PackageId" class="btn btn-main">Subscribe Now</a>
+								</div>
+							</div>
+						</div>
+					}
+					else
+					{
+						<div class="col-lg-4 col-md-6 mb-4 mb-lg-10">
+							<div class="card rounded-0 px-4 py-5">
+								<h4 class="card-title text-capitalize font-weight-normal font-secondary">@package.Name</h4>
+								<h3 class="text-lg font-secondary position-relative mt-2"><sup class="text-sm position-absolute">RM</sup> &nbsp; @package.Price</h3>
+
+								<div class="card-body mt-2">
+									<ul class="list-unstyled lh-35 mb-4">
+										<li class="text-black font-weight-bold"><i class="ti-check mr-3 text-color "></i>@package.Duration days</li>
+										<li class="text-black font-weight-bold"><i class="ti-check mr-3 text-color "></i>@package.Description</li>
+									</ul>
+									<a asp-action="Subscribe" asp-controller="Package" asp-route-packageid="@package.PackageId" class="btn btn-solid-border text-black">Subscribe Now</a>
+								</div>
+							</div>
+						</div>						
+					}
+				}				
+			</div>
+		</div>
+	</section>
+	<!-- Section pricing End -->
+</div>
+}
+
+

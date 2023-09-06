@@ -1,0 +1,96 @@
+﻿@model List<Booking>
+@{
+    ViewData["Title"] = "ManageBookingHistoryPage";
+}
+
+<style>
+    th{
+        padding:10px
+    }
+
+    td{
+        padding:10px
+    }
+
+    table tr:not(:first-child):not(:last-child) {
+        border-bottom: 1px solid black;
+    }
+
+    table th{
+        border-bottom: 2px solid black;
+    }
+</style>
+
+@if (@ViewBag.empty == "Empty")
+{
+    <div style="margin-top:120px; margin-bottom:50px">
+        <div style="margin:auto;max-width:1000px;">
+            <h2 style="text-align:left">Manage Booking History</h2>
+            <div style="display:flex;justify-content:center;align-items:center;height:300px;background-color:#ecfaff;border-radius:10px">
+                No Data
+            </div>
+            
+        </div>
+    </div>
+}
+else
+{
+    <!-- add on the filtering feature above the list-->
+    <div style="margin-top:120px; margin-bottom:50px">
+        <form style="margin:auto;max-width:1000px">
+            <h2 style="text-align:left">Manage Booking History</h2>
+            <label>Fiter Booking: </label>&nbsp;&nbsp;
+            <input type="text" name="SearchString" placeholder="Enter Date/Time/Duration" style="border-radius:10px;width:300px;padding:0px 10px"/>&nbsp;&nbsp;&nbsp;
+            <button style="width:100px;border-radius:10px;background-color:orange;border:2px solid orange">Search</button>
+        </form>
+        <br />
+        <div style="margin:auto;max-width:1000px;border-radius:10px">
+            @if (!string.IsNullOrEmpty(@ViewBag.msg as string))
+            {
+                <div id="statusMessage" class="alert alert-success" role="alert">
+                    @ViewBag.msg
+                </div>
+            }
+            <table style="background-color:#ecfaff; padding:10px;border-radius:10px">
+                <!--static heading part use html-->
+                <tr>
+                    <th width="200">Booking ID</th>
+                    <th width="200">Booking Date</th>
+                    <th width="200">Start Time</th>
+                    <th width="200">Duration</th>
+                    <th width="200">Action</th>
+                </tr>
+                <!-- Dynamic Area - follow database data-->
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td width="200">@booking.BookingId</td>
+                        <td width="200">@booking.BookingDate.ToString("MM/dd/yyyy")</td>
+                        <td width="200">@booking.StartTime</td>
+                        <td width="200">@booking.Duration</td>
+                        <td width="200"><a asp-action="deletepage" asp-controller="Booking" asp-route-bookingId="@booking.BookingId">Delete</a></td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+}
+
+
+
+
+
+
+<script>
+    // Check if the status message is present, then set a timer to hide it after 5 seconds
+    document.addEventListener("DOMContentLoaded", function() {
+        var statusMessageElement = document.getElementById("statusMessage");
+        if (statusMessageElement) {
+            setTimeout(function() {
+                statusMessageElement.style.display = "none";
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+    });
+</script>
+    

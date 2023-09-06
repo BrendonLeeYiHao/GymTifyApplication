@@ -1,0 +1,63 @@
+﻿@model GymFitApplication.Models.Package
+@using Microsoft.AspNetCore.Identity
+@using GymFitApplication.Areas.Identity.Data;
+@inject UserManager<GymFitApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<hr />
+<center style="text-align:left;margin-top:120px;margin-bottom:50px">
+    <div style="padding:0px 10px">
+        <form method="post" asp-action="Create" asp-controller="Package" style="max-width:600px;margin:auto">
+            <h2>Package</h2>
+            <hr/>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label">Tutor</label>
+                <select asp-for="UserId" class="form-control">
+                    @foreach (var user in UserManager.Users.Where(u => u.Rolename == "Tutor"))
+                    {
+                        <option value="@user.Id">@user.UserName</option>
+                    }
+                </select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="w-100 btn btn-lg" style="background-color:rgb(245, 99, 75)"/>
+            </div>
+        </form>
+
+        @*<div>
+            <a asp-action="PackageList" asp-controller="Package">Back to List</a>
+        </div>*@
+    </div>    
+</center>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

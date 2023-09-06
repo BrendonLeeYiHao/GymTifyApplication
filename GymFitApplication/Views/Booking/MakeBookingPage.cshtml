@@ -1,0 +1,85 @@
+﻿@model GymFitApplication.Models.Booking
+@{
+    ViewData["Title"] = "MakeBookingPage";
+}
+
+<div style="background-image: url('@Url.Content("~/theme/images/GymWeightsModified.jpg")');background-size:cover;>
+    <div style="margin-top:70px;">
+         <form style="max-width:600px;margin:auto;text-align:left;color:white" asp-action="MakeBookingPage">
+                <h2 style="padding-top:100px;color:orange">Gym Booking</h2>
+                <br />
+                <p>Pending Customer Booking Request Amount in the queue: @ViewBag.MessageCount</p>
+                @if (!string.IsNullOrEmpty(TempData["StatusMessage"] as string))
+                {
+                    <div id="statusMessage" class="alert alert-success" role="alert">
+                        @TempData["StatusMessage"]
+                    </div>
+                }
+                <hr />
+                <h3 style="color:orangered">Rules & Regulations</h3>
+                <ul>
+                    <li>No food and drinks are allowed</li>
+                    <li>Workout at your own risk</li>
+                    <li>If need help, please come forward to the counter</li>
+                </ul>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <b><label asp-for="UserName"></label></b>
+                    <input asp-for="UserName" class="form-control" autocomplete="username" aria-required="true" readonly/>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-floating">
+                    <b><label asp-for="BookingDate"></label></b>
+                    <input type="date" asp-for="BookingDate" id="BookingDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" max="@DateTime.Now.AddDays(30).ToString("yyyy-MM-dd")" class="form-control" aria-required="true"/>
+                    <span asp-validation-for="BookingDate" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-floating">
+                    <b><label asp-for="StartTime"></label></b>
+                     <select asp-for="StartTime" class="form-control">
+                            <option value="9:00">9:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                        </select>
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-floating">
+                    <b><label asp-for="Duration"></label></b>
+                    <select asp-for="Duration" class="form-control">
+                        <option value="1 hour">1 hour</option>
+                        <option value="2 hours">2 hours</option>
+                        <option value="3 hours">3 hours</option>
+                        <option value="4 hours">4 hours</option>
+                    </select>
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+                <br />
+                <button type="submit" class="w-100 btn btn-lg" style="background-color:rgb(245, 99, 75)">Book</button>
+                <br /><br />
+            </form>
+    </div>
+</div>
+
+<script>
+    // Check if the status message is present, then set a timer to hide it after 5 seconds
+    document.addEventListener("DOMContentLoaded", function() {
+        var statusMessageElement = document.getElementById("statusMessage");
+        if (statusMessageElement) {
+            setTimeout(function() {
+                statusMessageElement.style.display = "none";
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+    });
+</script>

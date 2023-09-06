@@ -1,0 +1,58 @@
+﻿@model Package
+@using Microsoft.AspNetCore.Identity
+@using GymFitApplication.Areas.Identity.Data;
+@inject UserManager<GymFitApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "editpage";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<center style="margin-top:80px; margin-bottom:50px">
+    <div style="padding:0px 10px">
+        <form method="post" asp-action="updatepage" asp-controller="Package" style="margin:auto;text-align:left;max-width:600px">
+            <h2>Edit Package</h2>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <label asp-for="PackageId" class="form-label"></label>
+                <input asp-for="PackageId" readonly class="form-control" />
+                <span asp-validation-for="PackageId" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Description" class="form-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Price" class="form-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Duration" class="form-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="UserId" class="control-label">Tutor</label>
+                <select asp-for="UserId" class="form-control">
+                    @foreach (var user in UserManager.Users.Where(u => u.Rolename == "Tutor"))
+                    {
+                        <option value="@user.Id">@user.UserName</option>
+                    }
+                </select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <br />
+            <button class="w-100 btn btn-lg btn-primary">Save</button>
+        </form>
+    </div>
+</center>
+
+

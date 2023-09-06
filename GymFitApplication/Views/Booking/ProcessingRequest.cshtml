@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "ProcessingRequest";
+}
+
+<style>
+    .center-container {
+        display: flex;
+        flex-direction:column;
+        justify-content: center; /* Horizontally center the content */
+        align-items: center; /* Vertically center the content */
+        height: 100vh; /* Set the container's height to the full viewport height */
+    }
+</style>
+
+
+
+<div class="center-container" style="background-color:#FAF9F6">
+    <h1>Processing request .....</h1>
+    <p>Do not click anyway. Redirecting in <span id="countdown"></span> seconds</p>
+</div>
+
+
+@*<script>
+    // Function to redirect after a delay
+    function redirectToView() {
+        setTimeout(function () {
+            window.location.href = '@Url.Action("ViewBookingRequestPage", "Booking")';
+        }, 5000); // 10 seconds in milliseconds
+    }
+
+    // Call the function when the page loads
+    document.addEventListener("DOMContentLoaded", function () {
+        redirectToView();
+    });
+</script>*@
+
+<script>
+    // Function to display the countdown and redirect after a delay
+    function displayCountdownAndRedirect() {
+        var countdown = 15;
+        var countdownElement = document.getElementById("countdown");
+
+        function updateCountdown() {
+            countdownElement.innerText = countdown;
+            countdown--;
+
+            if (countdown < 0) {
+                clearInterval(countdownInterval);
+                redirectToView();
+            }
+        }
+
+        updateCountdown(); // Initial update
+        var countdownInterval = setInterval(updateCountdown, 1000); // Update every 1 second
+    }
+
+    // Function to redirect to the specified URL
+    function redirectToView() {
+        window.location.href = '@Url.Action("ViewBookingRequestPage", "Booking")';
+    }
+
+    // Call the function when the page loads
+    document.addEventListener("DOMContentLoaded", function () {
+        displayCountdownAndRedirect();
+    });
+</script>

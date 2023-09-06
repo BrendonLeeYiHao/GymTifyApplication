@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "AnnouncementPage";
+}
+
+<div style="text-align:left;margin-top:120px;margin-bottom:50px">
+    <div style="padding:0px 10px">
+        <form asp-action="processBroadcast" asp-controller="Announcement" style="max-width:600px;margin:auto">
+            <h2>Newsletter & Announcement</h2>
+            @if (!string.IsNullOrEmpty(@ViewBag.msg as string))
+            {
+                @if(@ViewBag.msg == "Error")
+                {
+                    <div id="statusMessage" class="alert alert-danger" role="alert">
+                        Please fill in all fields!
+                    </div>
+                }
+                else
+                {
+                    <div id="statusMessage" class="alert alert-success" role="alert">
+                        @ViewBag.msg
+                    </div>
+                }
+
+            }
+            <hr />
+            <div class="form-floating">
+                <label>Subject Title:</label>
+                <input type="text" name="subjecttitle" placeholder="Gym Reopening Notice" class="form-control" aria-required="true" />
+            </div>
+            <br />
+            <div class="form-floating">
+                <label>Message</label>
+                <textarea name="msgBody" class="form-control" aria-required="true" rows="6" placeholder="Type something here ..."></textarea>
+            </div>
+            <br />
+            <button id="submitForm" type="submit" class="w-100 btn btn-lg" style="background-color:rgb(245, 99, 75)">Broadcast Message</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    // Check if the status message is present, then set a timer to hide it after 5 seconds
+    document.addEventListener("DOMContentLoaded", function() {
+        var statusMessageElement = document.getElementById("statusMessage");
+        if (statusMessageElement) {
+            setTimeout(function() {
+                statusMessageElement.style.display = "none";
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+    });
+</script>

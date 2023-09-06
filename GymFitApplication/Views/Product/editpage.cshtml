@@ -1,0 +1,45 @@
+﻿@model GymFitApplication.Models.Product
+
+@{
+    ViewData["Title"] = "editpage";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<center style="margin-top:80px; margin-bottom:50px">
+    <div style="padding:0px 10px">
+        <form method="post" asp-action="updatepage" asp-controller="Product" style="margin:auto;text-align:left;max-width:600px" enctype="multipart/form-data">
+            <h2>Edit Product</h2>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Image</label>
+                <div class="row justify-content-center">
+                    @if (!string.IsNullOrEmpty(Model.Image))
+                    {
+                        <img src="@Model.Image" alt="Product Image" class="img-fluid" width="200px" height="200px" />
+                    }
+                </div>                
+                <input type="file" name="imagefiles" accept="image/*" class="form-control pb-5 pt-3" />
+            </div>
+            <br />
+            <button class="w-100 btn btn-lg btn-primary" style="background-color:rgb(245, 99, 75)">Save</button>
+        </form>
+    </div>
+</center>
+

@@ -1,0 +1,87 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<center style="margin-top:80px; margin-bottom:50px">
+    <div style="padding:0px 10px">
+        <form id="profile-form" method="post" style="margin:auto;text-align:left;max-width:600px">
+            <h2>Profile</h2>
+            @if (!string.IsNullOrEmpty(TempData["StatusMessage"] as string))
+            {
+                <div id="statusMessage" class="alert alert-success" role="alert">
+                    @TempData["StatusMessage"]
+                </div>
+            }
+            @*<partial name="_StatusMessage" for="StatusMessage" />*@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <label asp-for="Input.Username" class="form-label"></label>
+                <input asp-for="Input.Username" class="form-control" disabled />
+                <span asp-validation-for="Input.Username" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-floating">
+                <label asp-for="Input.Email" class="form-label"></label>
+                <input asp-for="Input.Email" class="form-control" disabled/>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-floating">
+                <label asp-for="Input.RoleName" class="form-label"></label>
+                <input asp-for="Input.RoleName" readonly class="form-control" />
+                <span asp-validation-for="Input.RoleName" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-floating">
+                <label asp-for="Input.PackageId" class="form-label"></label>
+                <input asp-for="Input.PackageId" readonly class="form-control" />
+                <span asp-validation-for="Input.PackageId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-floating">
+                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-floating">
+                <label asp-for="Input.Dateofbirth" class="form-label"></label>
+                <input asp-for="Input.Dateofbirth" max="@DateTime.Now.AddYears(-18).ToString("yyyy-MM-dd")" class="form-control" />
+                <span asp-validation-for="Input.Dateofbirth" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-floating">
+                <label asp-for="Input.Gender">Gender</label>
+                    <select asp-for="Input.Gender" class="form-control">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <span asp-validation-for="Input.Gender" class="text-danger"></span>
+            </div>
+            <br />
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        </form>
+    </div>
+</center>
+
+<script>
+    // Check if the status message is present, then set a timer to hide it after 5 seconds
+    document.addEventListener("DOMContentLoaded", function() {
+        var statusMessageElement = document.getElementById("statusMessage");
+        if (statusMessageElement) {
+            setTimeout(function() {
+                statusMessageElement.style.display = "none";
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+    });
+</script>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

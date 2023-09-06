@@ -1,0 +1,64 @@
+﻿@using GymFitApplication.Areas.Identity.Data;
+@model GymFitApplicationUser
+
+@{
+    ViewData["Title"] = "editpage";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<center style="margin-top:80px; margin-bottom:50px">
+    <div style="padding:0px 10px">
+        <form method="post" asp-action="updatepage" asp-controller="User" style="margin:auto;text-align:left;max-width:600px">
+            <h2>Edit User</h2>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <label asp-for="Id" class="form-label"></label>
+                <input asp-for="Id" readonly class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="UserName" class="form-label"></label>
+                <input asp-for="UserName" readonly class="form-control"/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Rolename" class="form-label"></label>
+                <input asp-for="Rolename" readonly class="form-control"/>
+                <span asp-validation-for="Rolename" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" readonly class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Packageid" class="form-label"></label>
+                <input asp-for="Packageid" readonly class="form-control" />
+                <span asp-validation-for="Packageid" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="PhoneNumber" class="form-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Dateofbirth" class="form-label"></label>
+                <input asp-for="Dateofbirth" type="date" max="@DateTime.Now.AddYears(-18).ToString("yyyy-MM-dd")" class="form-control" />
+                <span asp-validation-for="Dateofbirth" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <label asp-for="Gender">Gender</label>
+                <select asp-for="Gender" class="form-control">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <br />
+            <button class="w-100 btn btn-lg btn-primary">Save</button>
+        </form>
+    </div>
+</center>
+
+

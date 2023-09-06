@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using GymFitApplication.Areas.Identity.Data
+
+@inject SignInManager<GymFitApplicationUser> SignInManager
+@inject UserManager<GymFitApplicationUser> UserManager
+
+
+@*<ul class="navbar-nav">*@
+@if (SignInManager.IsSignedIn(User))
+{
+@*    <li class="nav-item">
+        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+    </li>
+    <li class="nav-item">
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        </form>
+    </li>*@
+@*    <div class="my-md-0 ml-lg-4 mt-4 mt-lg-0 ml-auto text-lg-right mb-3 mb-lg-0">
+		<a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+			<h3 class="text-color mb-0">Hello @UserManager.GetUserName(User)!</h3>
+		</a>
+	</div>
+*@
+@*	<div class="my-md-0 ml-lg-4 mt-4 mt-lg-0 ml-auto text-lg-right mb-3 mb-lg-0">
+		<form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" style="color:white;background-color:transparent">Logout</button>
+        </form>
+	</div>*@
+
+	@if (User.IsInRole("Customer"))
+	{
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<img src="~/theme/images/avataricon.png" width="40" height="40" style="margin-top:-30px"/>
+			</a>
+			<ul class="dropdown-menu" style="margin-left:-130px;min-width:100px">
+				<li><a class="dropdown-item" id="manage" asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a></li>
+				<li><a class="dropdown-item" asp-controller="Booking" asp-action="ManageBookingHistoryPage">Booking History</a></li>
+				<form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+					<button type="submit" class="dropdown-item" id="logout" >Logout</button>
+				</form>
+			</ul>
+		</li>
+	}
+	else
+	{
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<img src="~/theme/images/avataricon.png" width="40" height="40" style="margin-top:-30px"/>
+			</a>
+			<ul class="dropdown-menu" style="margin-left:-60px;min-width:100px">
+				<li><a class="dropdown-item" id="manage" asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a></li>
+				<form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+					<button type="submit" class="dropdown-item" id="logout" >Logout</button>
+				</form>
+			</ul>
+		</li>
+	}
+
+@*	 
+					    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+						    aria-expanded="false">Pages.</a>
+					    <ul class="dropdown-menu">
+						    <li><a class="dropdown-item" href="about.html">About</a></li>
+						    <li><a class="dropdown-item" href="trainer.html">Trainer</a></li>
+						    <li><a class="dropdown-item" href="course.html">Courses</a></li>
+					    </ul>
+				    </li>*@
+}
+else
+{
+@*    <li class="nav-item">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>*@
+    <div class="my-md-0 ml-lg-4 mt-4 mt-lg-0 ml-auto text-lg-right mb-3 mb-lg-0">
+		<a id="register" asp-area="Identity" asp-page="/Account/Register">
+			<h3 class="text-color mb-0">Register</h3>
+		</a>
+	</div>
+	<div class="my-md-0 ml-lg-4 mt-4 mt-lg-0 ml-auto text-lg-right mb-3 mb-lg-0">
+		<a id="login" asp-area="Identity" asp-page="/Account/Login">
+			<h3 class="mb-0" style="color:white">Login</h3>
+		</a>
+	</div>
+}
+@*</ul>*@
