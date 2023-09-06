@@ -1,1 +1,1 @@
-GymFitApplication
+GymTifyApplication
